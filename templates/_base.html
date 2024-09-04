@@ -1,24 +1,24 @@
-
+{% load static %}
 
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <link rel="shortcut icon" href="assets/img/seller-logo.png" type="image/icon">
+    <link rel="shortcut icon" href="{% static 'assets/img/seller-logo.png' %}" type="image/icon">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title> دیجی پرس</title>
-    <link rel="stylesheet" href="assets/css/vendor/font-awesome.min.css">
-    <link rel="stylesheet" href="assets/css/vendor/bootstrap.min.css">
-    <link rel="stylesheet" href="./assets/css/vendor/bootstrap-slider.min.css">
-    <link rel="stylesheet" href="./assets/css/vendor/owl.carousel.min.css">
-    <link rel="stylesheet" href="./assets/css/vendor/jquery.horizontalmenu.css">
-    <link rel="stylesheet" href="./assets/css/vendor/jquery-stack-menu.min.css">
-    <link rel="stylesheet" href="./assets/css/vendor/nice-select.css">
-    <link rel="stylesheet" href="./assets/css/vendor/nouislider.min.css">
-    <link rel="stylesheet" href="assets/plugin/go-to-top/style.css">
-    <link rel="stylesheet" href="assets/plugin/iran-map/iranmap.css">
-    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="{% static 'assets/css/vendor/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/vendor/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/vendor/bootstrap-slider.min.css' %} %}ss">
+    <link rel="stylesheet" href="{% static 'assets/css/vendor/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/vendor/jquery.horizontalmenu.css'%}">
+    <link rel="stylesheet" href="{% static 'assets/css/vendor/jquery-stack-menu.min.css' %}">
+    <link rel="stylesheet" href="{% static ' assets/css/vendor/nice-select.css'%}">
+    <link rel="stylesheet" href="{% static ' assets/css/vendor/nouislider.min.css'%}">
+    <link rel="stylesheet" href="{% static 'assets/plugin/go-to-top/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/plugin/iran-map/iranmap.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/main.css' %}">
 </head>
 
 <body>
@@ -1047,7 +1047,7 @@
                     <li>
                         <a href="#">
                         <i>
-                            <svg width="25px" height="25px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+                            <svg width="25px" height="25px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                     viewBox="0 0 512 512" xml:space="preserve">
                                 <rect x="21.59" y="175.807" style="fill:#EDEDED;" width="468.819" height="234.41"/>
                                 <rect x="453.398" y="175.807" style="fill:#D8D8DA;" width="37.012" height="234.41"/>
@@ -1057,9 +1057,9 @@
                                 <path style="fill:#DC4161;" d="M256,262.169c-4.186,0-8.298,0.305-12.337,0.844c45.266,6.035,80.193,44.77,80.193,91.686
                                     s-34.927,85.652-80.193,91.686c4.039,0.538,8.151,0.844,12.337,0.844c51.103,0,92.53-41.428,92.53-92.53
                                     S307.103,262.169,256,262.169z"/>
-                                <polygon style="fill:#80CB93;" points="502.747,138.795 490.41,151.133 21.59,151.133 9.253,138.795 83.277,64.771 428.723,64.771 
+                                <polygon style="fill:#80CB93;" points="502.747,138.795 490.41,151.133 21.59,151.133 9.253,138.795 83.277,64.771 428.723,64.771
                                     "/>
-                                <polygon style="fill:#6DC180;" points="428.723,64.771 404.048,64.771 478.072,138.795 465.735,151.133 490.41,151.133 
+                                <polygon style="fill:#6DC180;" points="428.723,64.771 404.048,64.771 478.072,138.795 465.735,151.133 490.41,151.133
                                     502.747,138.795 "/>
                                 <path style="fill:#95D5A7;" d="M9.253,175.807c0,34.068,27.618,61.687,61.687,61.687s61.687-27.618,61.687-61.687
                                     c0,34.068,27.618,61.687,61.687,61.687S256,209.876,256,175.807c0,34.068,27.618,61.687,61.687,61.687s61.687-27.618,61.687-61.687
@@ -1218,14 +1218,7 @@
                         <i></i>سوال دارید؟ </a>
                     </li>
                     </ul>
-                    <button style="margin-top: 0;" type="button" class="btn btn-default btn-round float-left" id="btn-cities" data-bs-toggle="modal" data-bs-target="#cities-modal">
-                        <svg style="margin-bottom: 7px;margin-left: 5px;" width="25px" height="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path opacity="0.5" d="M5 8.51464C5 4.9167 8.13401 2 12 2C15.866 2 19 4.9167 19 8.51464C19 12.0844 16.7658 16.2499 13.2801 17.7396C12.4675 18.0868 11.5325 18.0868 10.7199 17.7396C7.23416 16.2499 5 12.0844 5 8.51464Z" stroke="#1C274C" stroke-width="1.5"/>
-                            <path d="M14 9C14 10.1046 13.1046 11 12 11C10.8954 11 10 10.1046 10 9C10 7.89543 10.8954 7 12 7C13.1046 7 14 7.89543 14 9Z" stroke="#1C274C" stroke-width="1.5"/>
-                            <path d="M20.9605 15.5C21.6259 16.1025 22 16.7816 22 17.5C22 19.9853 17.5228 22 12 22C6.47715 22 2 19.9853 2 17.5C2 16.7816 2.37412 16.1025 3.03947 15.5" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"/>
-                        </svg>
-                        <span>لطفا شهر خود را انتخاب کنید</span>
-                    </button>
+
                 </nav>
             </div>
         </header>
@@ -1251,7 +1244,7 @@
                     <li>
                     <a href="#">
                         <i>
-                            <svg width="25px" height="25px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+                            <svg width="25px" height="25px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                     viewBox="0 0 512 512" xml:space="preserve">
                                 <rect x="21.59" y="175.807" style="fill:#EDEDED;" width="468.819" height="234.41"/>
                                 <rect x="453.398" y="175.807" style="fill:#D8D8DA;" width="37.012" height="234.41"/>
@@ -1261,9 +1254,9 @@
                                 <path style="fill:#DC4161;" d="M256,262.169c-4.186,0-8.298,0.305-12.337,0.844c45.266,6.035,80.193,44.77,80.193,91.686
                                     s-34.927,85.652-80.193,91.686c4.039,0.538,8.151,0.844,12.337,0.844c51.103,0,92.53-41.428,92.53-92.53
                                     S307.103,262.169,256,262.169z"/>
-                                <polygon style="fill:#80CB93;" points="502.747,138.795 490.41,151.133 21.59,151.133 9.253,138.795 83.277,64.771 428.723,64.771 
+                                <polygon style="fill:#80CB93;" points="502.747,138.795 490.41,151.133 21.59,151.133 9.253,138.795 83.277,64.771 428.723,64.771
                                     "/>
-                                <polygon style="fill:#6DC180;" points="428.723,64.771 404.048,64.771 478.072,138.795 465.735,151.133 490.41,151.133 
+                                <polygon style="fill:#6DC180;" points="428.723,64.771 404.048,64.771 478.072,138.795 465.735,151.133 490.41,151.133
                                     502.747,138.795 "/>
                                 <path style="fill:#95D5A7;" d="M9.253,175.807c0,34.068,27.618,61.687,61.687,61.687s61.687-27.618,61.687-61.687
                                     c0,34.068,27.618,61.687,61.687,61.687S256,209.876,256,175.807c0,34.068,27.618,61.687,61.687,61.687s61.687-27.618,61.687-61.687
@@ -1752,9 +1745,9 @@
         </div>
         <!--------------------- Header Responsive Section -->
 
-        
-        
-        
+
+
+
         <!---------------------------- Page Loader Section-->
         <div class="page-loader">
             <div class="page-loader-content">
@@ -1766,20 +1759,20 @@
         </div>
         <!---------------------------- Page Loader Section-->
 
-        
-        
+
+
         {% block main_content %}
-        	
+
         {% endblock %}
-        
-        
+
+
         <!-------------------------- Mobile Footer Section-->
         <div class="mobile-footer d-lg-none d-table justify-content-center shadow-box bg-white position-fixed p-2 w-100" style="bottom:0;z-index: 100;table-layout: fixed;">
             <ul class="d-table-row">
             <li class="d-table-cell pointer">
                 <div class="mf-link nav-link text-center">
                 <span class="d-block mf-link-icon" style="cursor: pointer;">
-                    <svg height="25pxx" width="25px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+                    <svg height="25pxx" width="25px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                             viewBox="0 0 512 512" xml:space="preserve">
                         <path style="fill:#CEE8FA;" d="M395.47,296.3H116.531c-36.816,0-57.855-42.009-35.803-71.491L225.983,30.621
                             c14.993-20.043,45.041-20.043,60.034,0l145.254,194.188C453.325,254.291,432.286,296.3,395.47,296.3z"/>
@@ -2035,13 +2028,13 @@
         </footer>
         <!-------------------------------- Footer Section -->
 
-        
+
         <!----------------------------- Go To Top Section -->
         <div class="progress-wrap d-lg-block d-none" style="position: fixed;">
             <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
             <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
             </svg>
-            <svg style="position: absolute;left: 8px;top: 9px;" height="30px" width="30px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            <svg style="position: absolute;left: 8px;top: 9px;" height="30px" width="30px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                 viewBox="0 0 512 512" xml:space="preserve">
             <path style="fill:#CEE8FA;" d="M395.47,296.3H116.531c-36.816,0-57.855-42.009-35.803-71.491L225.983,30.621
                 c14.993-20.043,45.041-20.043,60.034,0l145.254,194.188C453.325,254.291,432.286,296.3,395.47,296.3z"/>
@@ -2058,23 +2051,23 @@
         </div>
         <!----------------------------- Go To Top Section -->
 
-        
+
 </div>
 
 
     <!-- Core JS Files -->
-    <script src="assets/js/vendor/jquery.min.js"></script>
-    <script src="assets/js/vendor/popper.min.js"></script>
-    <script src="assets/js/vendor/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'assets/js/vendor/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/js/vendor/popper.min.js' %}"></script>
+    <script src="{% static 'assets/js/vendor/bootstrap.bundle.min.js' %}"></script>
     <!-- Plugins -->
-    <script src="assets/js/vendor/bootstrap-slider.min.js"></script>
-    <script src="assets/js/vendor/owl.carousel.min.js"></script>
-    <script src="assets/js/vendor/owl.carousel2.thumbs.min.js"></script>
-    <script src="assets/js/vendor/jquery.nice-select.min.js"></script>
-    <script src="assets/js/vendor/theia-sticky-sidebar.min.js"></script>
-    <script src="assets/plugin/go-to-top/script.js"></script>
-    <script src="assets/plugin/iran-map/iranmap.js"></script>
+    <script src="{% static 'assets/js/vendor/bootstrap-slider.min.js' %}"></script>
+    <script src="{% static 'assets/js/vendor/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'assets/js/vendor/owl.carousel2.thumbs.min.js' %}"></script>
+    <script src="{% static 'assets/js/vendor/jquery.nice-select.min.js' %}"></script>
+    <script src="{% static 'assets/js/vendor/theia-sticky-sidebar.min.js' %}"></script>
+    <script src="{% static 'assets/plugin/go-to-top/script.js' %}"></script>
+    <script src="{% static 'assets/plugin/iran-map/iranmap.js' %}"></script>
     <!-- Main JS File -->
-    <script src="assets/js/js-home-1/js-home-1.js"></script>
+    <script src="{% static 'assets/js/js-home-1/js-home-1.js' %}"></script>
 </body>
 </html>
