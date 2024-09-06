@@ -1,0 +1,45 @@
+{% extends '_base.html' %}
+{% load i18n %}
+{% load account %}
+{% load allauth %}
+{% block title %}
+    {% trans "Confirm Email Address" %}
+{% endblock title %}
+{% block main_content %}
+    <div class="container card shadow p-5 mb--200">
+        <div style="text-align: center; padding-bottom: 40px;">
+                    <h1>{% trans "Confirm Email Address" %}</h1>
+                    {% if confirmation %}
+                        {% user_display confirmation.email_address.user as user_display %}
+                        {% if can_confirm %}
+                            <p>
+                                لطفا تایید کنید که <a href="mailto:{{ email }}">{{ email }}</a> مربوط به کاربر {{ user_display }}.
+                            </p>
+                    </div>
+
+
+
+                    {% url 'account_confirm_email' confirmation.key as action_url %}
+
+                    <div class="d-flex justify-content-center button-container">
+                        {% element form method="post" action=action_url %}
+                            {% slot actions %}
+                                {% csrf_token %}
+                                {{ redirect_field }}
+                                <button type="submit" class="btn btn-primary-cm">تایید کنید </button>
+                            {% endslot %}
+                        {% endelement %}
+                    </div>
+                {% else %}
+                    <p>
+                       {% blocktrans %}Unable to confirm {{ email }} because it is already confirmed by a different account.{% endblocktrans %}
+                    </p>
+                {% endif %}
+            {% else %}
+                {% url 'account_email' as email_url %}
+                <p>
+                 {% blocktrans %}This email confirmation link expired or is invalid. Please <a href="{{ email_url }}">issue a new email confirmation request</a>.{% endblocktrans %}
+                </p>
+            {% endif %}
+        </div>
+{% endblock main_content %}

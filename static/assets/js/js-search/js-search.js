@@ -178,4 +178,5 @@
       return false;
     },
    });
+
  /*------------------------------ Horizontal Menu */
