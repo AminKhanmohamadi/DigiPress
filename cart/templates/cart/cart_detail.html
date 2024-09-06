@@ -2,20 +2,22 @@
 
 {% load static %}
 {% load crispy_forms_tags %}
+{% load humanize %}
 
 {% block main_content %}
     <main class="main-content dt-sl mb-3">
         <div class="container main-container">
             <div class="row mx-0">
-                <div class="col-xl-9 col-lg-8 col-md-12 col-sm-12 mb-2 mt-2" style="padding-left: 0;padding-right: 0;">
-                    <nav class="tab-cart-page">
-                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                            <a class="nav-item nav-link d-inline-flex w-auto active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">سبد خرید<span class="count-cart">1</span></a>
-                            <a class="nav-item nav-link d-inline-flex w-auto" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">لیست خرید بعدی<span class="count-cart">1</span></a>
-                        </div>
-                    </nav>
-                </div>
-                <div class="col-12">
+                {% if cart %}
+                    <div class="col-xl-9 col-lg-8 col-md-12 col-sm-12 mb-2 mt-2" style="padding-left: 0;padding-right: 0;">
+                        <nav class="tab-cart-page">
+                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                <a class="nav-item nav-link d-inline-flex w-auto active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">سبد خرید<span class="count-cart">1</span></a>
+                                {#                            <a class="nav-item nav-link d-inline-flex w-auto" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">لیست خرید بعدی<span class="count-cart">1</span></a>#}
+                            </div>
+                        </nav>
+                    </div>
+                    <div class="col-12">
                     <div class="tab-content" id="nav-tabContent">
                         <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
                              aria-labelledby="nav-home-tab">
@@ -41,237 +43,137 @@
                                         </div>
                                         <div class="checkout-section-content-dd-k">
                                             <div class="cart-items-dd-k">
-                                                <div class="cart-item py-4 px-3">
-                                                    <div class="item-thumbnail">
-                                                        <a href="#">
-                                                            <img src="./assets/img/cart/cart01.jpg" alt="item">
-                                                        </a>
-                                                    </div>
-                                                    <div class="item-info flex-grow-1">
-                                                        <div class="item-title">
-                                                            <h2>
-                                                                <a href="#">
-                                                                    گوشی موبایل سامسونگ
-                                                                </a>
-                                                            </h2>
+                                                {% for item in cart %}
+                                                    <div class="cart-item py-4 px-3">
+                                                        <div class="item-thumbnail">
+                                                            <a href="{% url 'product_detail' item.product_obj.id %}">
+                                                                <img src="{{ item.product_obj.image.url }}" alt="item">
+                                                            </a>
                                                         </div>
-                                                        <div class="item-detail">
-                                                            <ul>
-                                                                <li>
-                                                                        <span class="color"
-                                                                              style="background-color: #9E9E9E;"></span>
-                                                                    <span>خاکستری</span>
-                                                                </li>
-                                                                <li>
-                                                                    <i class="far fa-shield-check text-muted"></i>
-                                                                    <span>گارانتی ۱۸ ماهه</span>
-                                                                </li>
-                                                                <li>
-                                                                    <i class="far fa-store-alt text-muted"></i>
-                                                                    <span>نام فروشنده</span>
-                                                                </li>
-                                                                <li>
-                                                                    <i
-                                                                            class="far fa-clipboard-check text-primary"></i>
-                                                                    <span>موجود در انبار</span>
-                                                                </li>
-                                                            </ul>
-                                                            <div class="item-quantity--item-price">
-                                                                <div class="item-quantity">
-                                                                    <div class="num-block">
-                                                                        <div class="num-in">
-                                                                            <span class="plus"></span>
-                                                                            <input type="text" class="in-num"
-                                                                                   value="1" readonly>
-                                                                            <span class="minus dis"></span>
-                                                                        </div>
-                                                                    </div>
-                                                                    <button class="item-remove-btn mr-3">
-                                                                        <i class="far fa-trash-alt"></i>
-                                                                        حذف
-                                                                    </button>
+                                                        <div class="item-info flex-grow-1">
+                                                            <div class="item-title">
+                                                                <h2>
+                                                                    <a href="{% url 'product_detail' item.product_obj.id %}">
+                                                                        {{ item.product_obj.title }}
+                                                                    </a>
+                                                                </h2>
+                                                            </div>
+                                                            <div class="item-detail">
+                                                                <ul>
+                                                                    <li>
+                                                                        <i class="far fa-shield-check text-muted"></i>
+                                                                        <span>گارانتی ۱۸ ماهه</span>
+                                                                    </li>
+                                                                    <li>
+                                                                        <i class="far fa-store-alt text-muted"></i>
+                                                                        <span>نام فروشنده</span>
+                                                                    </li>
+                                                                    {% if item.product_obj.is_active %}
+                                                                        <li>
+                                                                            <i class="far fa-clipboard-check text-primary"></i>
+                                                                            <span>موجود در انبار</span>
+                                                                        </li>
+                                                                    {% else %}
+                                                                        <li>
+                                                                            <i class="far fa-clipboard-check text-primary"></i>
+                                                                            <span>نا موجود در انبار</span>
+                                                                        </li>
+                                                                    {% endif %}
+                                                                </ul>
+                                                                <div class="item-quantity--item-price">
+                                                                    <form action="{% url 'add_to_cart' item.product_obj.id %}" method="post">
+                                                                        <div class="item-quantity">
+                                                                            {% csrf_token %}
+                                                                            <div class="num-block">
+                                                                                <div class="num-in">
+                                                                                    <span class="plus"></span>
+                                                                                    <input type="text" class="in-num" name="quantity" value="{{ item.quantity }}" readonly>
+                                                                                    <span class="minus dis"></span>
+                                                                                </div>
+                                                                            </div>
+                                                                            {{ item.product_update_quantity_form.inplace }}
+
+                                                                            <button class="item-remove-btn mr-3 ml-3" type="submit">بروزرسانی  <i class="far fa-sync-alt"></i></button>
+                                                                            <button class="item-remove-btn mr-3" type="button">
+                                                                                <a class="item-remove-btn" href="{% url 'remove_from_cart' item.product_obj.id %}">
+                                                                                    <i class="far fa-trash-alt"></i>
+                                                                                    حذف
+                                                                                </a>
+                                                                            </button>
+                                                                    </form>
+
                                                                 </div>
+
                                                                 <div class="item-price">
-                                                                    ۱۰,000,۰۰۰<span
+                                                                    {{ item.total_price|intcomma:False }}<span
                                                                         class="text-sm mr-1">تومان</span>
                                                                 </div>
+
+
+
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="cart-item py-4 px-3">
-                                                    <div class="item-thumbnail">
-                                                        <a href="#">
-                                                            <img src="./assets/img/cart/cart02.jpg" alt="item">
-                                                        </a>
                                                     </div>
-                                                    <div class="item-info flex-grow-1">
-                                                        <div class="item-title">
-                                                            <h2>
-                                                                <a href="#">
-                                                                    گوشی موبایل سامسونگ
-                                                                </a>
-                                                            </h2>
-                                                        </div>
-                                                        <div class="item-detail">
-                                                            <ul>
-                                                                <li>
-                                                                        <span class="color"
-                                                                              style="background-color: #000;"></span>
-                                                                    <span>مشکی</span>
-                                                                </li>
-                                                                <li>
-                                                                    <i class="far fa-shield-check text-muted"></i>
-                                                                    <span>گارانتی ۱۸ ماهه</span>
-                                                                </li>
-                                                                <li>
-                                                                    <i class="far fa-store-alt text-muted"></i>
-                                                                    <span>نام فروشنده</span>
-                                                                </li>
-                                                                <li>
-                                                                    <i
-                                                                            class="far fa-clipboard-check text-primary"></i>
-                                                                    <span>موجود در انبار</span>
-                                                                </li>
-                                                            </ul>
-                                                            <div class="item-quantity--item-price">
-                                                                <div class="item-quantity">
-                                                                    <div class="num-block">
-                                                                        <div class="num-in">
-                                                                            <span class="plus"></span>
-                                                                            <input type="text" class="in-num"
-                                                                                   value="1" readonly>
-                                                                            <span class="minus dis"></span>
-                                                                        </div>
-                                                                    </div>
-                                                                    <button class="item-remove-btn mr-3">
-                                                                        <i class="far fa-trash-alt"></i>
-                                                                        حذف
-                                                                    </button>
-                                                                </div>
-                                                                <div class="item-price">
-                                                                    1,000,۰۰۰<span class="text-sm mr-1">تومان</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="cart-item py-4 px-3">
-                                                    <div class="item-thumbnail">
-                                                        <a href="#">
-                                                            <img src="./assets/img/cart/cart03.jpg" alt="item">
-                                                        </a>
-                                                    </div>
-                                                    <div class="item-info flex-grow-1">
-                                                        <div class="item-title">
-                                                            <h2>
-                                                                <a href="#">
-                                                                    لپ تاپ ایسوس
-                                                                </a>
-                                                            </h2>
-                                                        </div>
-                                                        <div class="item-detail">
-                                                            <ul>
-                                                                <li>
-                                                                        <span class="color"
-                                                                              style="background-color: #002171;"></span>
-                                                                    <span>سرمه ای</span>
-                                                                </li>
-                                                                <li>
-                                                                    <i class="far fa-shield-check text-muted"></i>
-                                                                    <span>گارانتی ۱۸ ماهه</span>
-                                                                </li>
-                                                                <li>
-                                                                    <i class="far fa-store-alt text-muted"></i>
-                                                                    <span>نام فروشنده</span>
-                                                                </li>
-                                                                <li>
-                                                                    <i
-                                                                            class="far fa-clipboard-check text-primary"></i>
-                                                                    <span>موجود در انبار</span>
-                                                                </li>
-                                                            </ul>
-                                                            <div class="item-quantity--item-price">
-                                                                <div class="item-quantity">
-                                                                    <div class="num-block">
-                                                                        <div class="num-in">
-                                                                            <span class="plus"></span>
-                                                                            <input type="text" class="in-num"
-                                                                                   value="1" readonly>
-                                                                            <span class="minus dis"></span>
-                                                                        </div>
-                                                                    </div>
-                                                                    <button class="item-remove-btn mr-3">
-                                                                        <i class="far fa-trash-alt"></i>
-                                                                        حذف
-                                                                    </button>
-                                                                </div>
-                                                                <div class="item-price">
-                                                                    1,000,۰۰۰<span
-                                                                        class="text-sm mr-1">تومان</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                                {% endfor %}
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xl-3 col-lg-4 col-12 sticky-sidebar">
-                                    <div class="widget-post1 dt-sn dt-sn--box border mb-2">
-                                        <ul class="checkout-summary-summary">
-                                            <li>
-                                                <span>مبلغ کل (3 کالا)</span><span>۱0,000,۰۰۰ تومان</span>
-                                            </li>
-                                            <li class="checkout-summary-discount">
-                                                <span>سود شما از خرید</span><span><span>(۱٪)</span>3۰۰,۰۰۰
+                            </div>
+                            <div class="col-xl-3 col-lg-4 col-12 sticky-sidebar">
+                                <div class="widget-post1 dt-sn dt-sn--box border mb-2">
+                                    <ul class="checkout-summary-summary">
+                                        <li>
+                                            <span>مبلغ کل (3 کالا)</span><span>۱0,000,۰۰۰ تومان</span>
+                                        </li>
+                                        <li class="checkout-summary-discount">
+                                            <span>سود شما از خرید</span><span><span>(۱٪)</span>3۰۰,۰۰۰
                                                         تومان</span>
-                                            </li>
-                                            <li>
-                                                    <span>هزینه ارسال<span class="help-sn" data-toggle="tooltip"
-                                                                           data-html="true" data-placement="bottom"
-                                                                           title="<div class='help-container is-right'><div class='help-arrow'></div><p class='help-text'>هزینه ارسال مرسولات می‌تواند وابسته به شهر و آدرس گیرنده متفاوت باشد. در صورتی که هر یک از مرسولات حداقل ارزشی برابر با 120هزار تومان داشته باشد، آن مرسوله بصورت رایگان ارسال می‌شود.<br>'حداقل ارزش هر مرسوله برای ارسال رایگان، می تواند متغیر باشد.'</p></div>">
+                                        </li>
+                                        <li>
+                                            <span>هزینه ارسال<span class="help-sn" data-toggle="tooltip"
+                                                                   data-html="true" data-placement="bottom"
+                                                                   title="<div class='help-container is-right'><div class='help-arrow'></div><p class='help-text'>هزینه ارسال مرسولات می‌تواند وابسته به شهر و آدرس گیرنده متفاوت باشد. در صورتی که هر یک از مرسولات حداقل ارزشی برابر با 120هزار تومان داشته باشد، آن مرسوله بصورت رایگان ارسال می‌شود.<br>'حداقل ارزش هر مرسوله برای ارسال رایگان، می تواند متغیر باشد.'</p></div>">
 
-                                                        </span>
+                                            </span>
                                                     </span>
-                                                <span>وابسته به آدرس</span>
-                                            </li>
-                                            <li class="checkout-club-container">
+                                            <span>وابسته به آدرس</span>
+                                        </li>
+                                        <li class="checkout-club-container">
                                                     <span>دیجیکلاب<span class="help-sn" data-toggle="tooltip"
                                                                         data-html="true" data-placement="bottom"
                                                                         title="<div class='help-container is-right'><div class='help-arrow'></div><p class='help-text'>با امتیازهای خود در باشگاه مشتریان دیجی پرس (دیجی کلاب) از بین جوایز متنوع انتخاب کنید.</p></div>">
 
                                                         </span>
                                                     </span>
-                                                <span><span>120+</span><span> امتیاز</span></span>
-                                            </li>
-                                        </ul>
-                                        <div class="checkout-summary-devider">
-                                            <div></div>
+                                            <span><span>120+</span><span> امتیاز</span></span>
+                                        </li>
+                                    </ul>
+                                    <div class="checkout-summary-devider">
+                                        <div></div>
+                                    </div>
+                                    <div class="checkout-summary-content">
+                                        <div class="checkout-summary-price-title">مبلغ قابل پرداخت:</div>
+                                        <div class="checkout-summary-price-value">
+                                            <span class="checkout-summary-price-value-amount">{{ cart.get_total_price|intcomma:False }}</span>
+                                            تومان
                                         </div>
-                                        <div class="checkout-summary-content">
-                                            <div class="checkout-summary-price-title">مبلغ قابل پرداخت:</div>
-                                            <div class="checkout-summary-price-value">
-                                                <span class="checkout-summary-price-value-amount">۱2,000,۰۰۰</span>
-                                                تومان
-                                            </div>
-                                            <a href="#" class="mb-2 d-block">
-                                                <button class="btn-primary-cm btn-with-icon w-100 text-center pr-0">
-                                                    <i>
-                                                        <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <g id="Iconly/Curved/Arrow - Left">
-                                                                <g id="Arrow - Left">
-                                                                    <path id="Stroke 1" d="M4.24988 12.2742L19.2499 12.2742" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                                                    <path id="Stroke 3" d="M10.3002 18.2988C10.3002 18.2988 4.25017 15.0378 4.25017 12.2758C4.25017 9.51176 10.3002 6.24976 10.3002 6.24976" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                                                </g>
+                                        <a href="#" class="mb-2 d-block">
+                                            <button class="btn-primary-cm btn-with-icon w-100 text-center pr-0">
+                                                <i>
+                                                    <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <g id="Iconly/Curved/Arrow - Left">
+                                                            <g id="Arrow - Left">
+                                                                <path id="Stroke 1" d="M4.24988 12.2742L19.2499 12.2742" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                <path id="Stroke 3" d="M10.3002 18.2988C10.3002 18.2988 4.25017 15.0378 4.25017 12.2758C4.25017 9.51176 10.3002 6.24976 10.3002 6.24976" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                                             </g>
-                                                        </svg>
-                                                    </i>
-                                                    ادامه ثبت سفارش
-                                                </button>
-                                            </a>
-                                            <div>
+                                                        </g>
+                                                    </svg>
+                                                </i>
+                                                ادامه ثبت سفارش
+                                            </button>
+                                        </a>
+                                        <div>
                                                     <span>
                                                         کالاهای موجود در سبد شما ثبت و رزرو نشده‌اند، برای ثبت سفارش
                                                         مراحل بعدی را تکمیل کنید.
@@ -280,137 +182,61 @@
                                                                  title="<div class='help-container is-right'><div class='help-arrow'></div><p class='help-text'>محصولات موجود در سبد خرید شما تنها در صورت ثبت و پرداخت سفارش برای شما رزرو می‌شوند. در صورت عدم ثبت سفارش، دیجی پرس هیچگونه مسئولیتی در قبال تغییر قیمت یا موجودی این کالاها ندارد.</p></div>">
 
                                                     </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="widget-post2 dt-sn dt-sn--box checkout-feature-aside pt-4">
-                                        <ul>
-                                            <li class="checkout-feature-aside-item">
-                                                <img src="./assets/img/svg/return-policy.svg" alt="">
-                                                هفت روز ضمانت تعویض
-                                            </li>
-                                            <li class="checkout-feature-aside-item">
-                                                <img src="./assets/img/svg/payment-terms.svg" alt="">
-                                                پرداخت در محل با کارت بانکی
-                                            </li>
-                                            <li class="checkout-feature-aside-item">
-                                                <img src="./assets/img/svg/delivery.svg" alt="">
-                                                تحویل اکسپرس
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="nav-profile" role="tabpanel"
-                             aria-labelledby="nav-profile-tab">
-                            <div class="row">
-                                <div class="col-xl-9 col-lg-8 col-12 px-0">
-                                    <div class="table-responsive checkout-content dt-sl">
-                                        <div class="checkout-header checkout-header--express">
-                                            <svg style="position: absolute;right: 0;" width="20px" height="20px" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <g clip-path="url(#clip0_901_3167)">
-                                                    <path d="M27.9731 6L28.9731 17H18.9731V5H26.9731C27.5031 5 27.8831 5.27 27.9731 6Z" fill="#FFE6EA"/>
-                                                    <path d="M24.9731 25C26.6331 25 27.9731 26.34 27.9731 28C27.9731 29.66 26.6331 31 24.9731 31C23.3131 31 21.9731 29.66 21.9731 28C21.9731 26.34 23.3131 25 24.9731 25ZM7.97308 25C9.63308 25 10.9731 26.34 10.9731 28C10.9731 29.66 9.63308 31 7.97308 31C6.31308 31 4.97308 29.66 4.97308 28C4.97308 27.69 5.02308 27.38 5.11308 27.1C5.49308 25.88 6.62308 25 7.97308 25Z" fill="#668077"/>
-                                                    <path d="M1.05318 3L2.55318 12L3.87318 20L5.05318 27.08L5.11318 27.1C5.49318 25.88 6.62318 25 7.97318 25C9.63318 25 10.9732 26.34 10.9732 28H21.9731C21.9731 26.34 23.3131 25 24.9731 25C26.6331 25 27.9731 26.34 27.9731 28H30.9731V19C30.9731 18 29.9731 17 28.9731 17H18.9732V2C18.9732 1.48 18.4832 1 17.9732 1H2.97318C1.63318 1 0.773177 1.34 1.05318 3Z" fill="#FFC44D"/>
-                                                    <path d="M28 28C28 26.344 26.656 25 25 25C23.344 25 22 26.344 22 28C22 29.656 23.344 31 25 31C26.656 31 28 29.656 28 28ZM28 28H31V19C31 18 30 17 29 17M11 28C11 26.344 9.656 25 8 25C6.344 25 5 26.344 5 28C5 29.656 6.344 31 8 31C9.656 31 11 29.656 11 28ZM11 28H19V2C19 1.484 18.515 1 18 1H3C1.656 1 0.797 1.344 1.078 3L2 9M29 17H22M29 17L28 6C27.906 5.266 27.531 5 27 5H22M8 16H2M9 20H3M7 12H1" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                                </g>
-                                                <defs>
-                                                    <clipPath id="clip0_901_3167">
-                                                        <rect width="32" height="32" fill="white"/>
-                                                    </clipPath>
-                                                </defs>
-                                            </svg>
-                                            <span class="checkout-header-title">ارسال عادی</span>
-                                            <span class="checkout-header-extra-info">(3 کالا)</span>
-                                            <a class="checkout-add-all-to-cart">
-                                                افزودن همه به سبد خرید
-                                            </a>
-                                        </div>
-                                        <div class="checkout-section-content-dd-k">
-                                            <div class="cart-items-dd-k">
-                                                <div class="cart-item py-4 px-3">
-                                                    <div class="item-thumbnail">
-                                                        <a href="#">
-                                                            <img src="./assets/img/cart/cart01.jpg" alt="item">
-                                                        </a>
-                                                    </div>
-                                                    <div class="item-info flex-grow-1">
-                                                        <div class="item-title">
-                                                            <h2>
-                                                                <a href="#">
-                                                                    گوشی موبایل سامسونگ
-                                                                </a>
-                                                            </h2>
-                                                        </div>
-                                                        <div class="item-detail">
-                                                            <ul>
-                                                                <li>
-                                                                        <span class="color"
-                                                                              style="background-color: #9E9E9E;"></span>
-                                                                    <span>خاکستری</span>
-                                                                </li>
-                                                                <li>
-                                                                    <i class="far fa-shield-check text-muted"></i>
-                                                                    <span>گارانتی ۱۸ ماهه</span>
-                                                                </li>
-                                                                <li>
-                                                                    <i class="far fa-store-alt text-muted"></i>
-                                                                    <span>نام فروشنده</span>
-                                                                </li>
-                                                                <li>
-                                                                    <i
-                                                                            class="far fa-clipboard-check text-primary"></i>
-                                                                    <span>موجود در انبار</span>
-                                                                </li>
-                                                            </ul>
-                                                            <div class="item-quantity--item-price">
-                                                                <div class="item-quantity">
-                                                                    <div class="num-block">
-                                                                        <div class="num-in">
-                                                                            <span class="plus"></span>
-                                                                            <input type="text" class="in-num"
-                                                                                   value="1" readonly>
-                                                                            <span class="minus dis"></span>
-                                                                        </div>
-                                                                    </div>
-                                                                    <button class="item-remove-btn mr-3">
-                                                                        <i class="far fa-trash-alt"></i>
-                                                                        حذف
-                                                                    </button>
-                                                                </div>
-                                                                <div class="item-price">
-                                                                    ۱۰,000,۰۰۰<span
-                                                                        class="text-sm mr-1">تومان</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xl-3 col-lg-4 col-12 sticky-sidebar">
-                                    <div class="dt-sn dt-sn--box border widget-post1">
-                                        <div
-                                                class="section-title text-sm-title title-wide mb-1 no-after-title-wide mb-2">
-                                            <h2 class="text-dark">لیست خرید بعدی چیست؟</h2>
-                                        </div>
-                                        <p class="text-secondary text-justify" style="line-height: 27px;font-size: 13px;">
-                                            شما می‌توانید محصولاتی که به سبد خرید
-                                            خود افزوده اید و موقتا قصد خرید آن‌ها را ندارید، در لیست خرید بعدی خود
-                                            قرار داده و
-                                            هر زمان مایل بودید آن‌ها را مجدداً به سبد خرید اضافه کرده و خرید آن‌ها
-                                            را تکمیل کنید.
-                                        </p>
-                                    </div>
+                                <div class="widget-post2 dt-sn dt-sn--box checkout-feature-aside pt-4">
+                                    <ul>
+                                        <li class="checkout-feature-aside-item">
+                                            <img src="./assets/img/svg/return-policy.svg" alt="">
+                                            هفت روز ضمانت تعویض
+                                        </li>
+                                        <li class="checkout-feature-aside-item">
+                                            <img src="./assets/img/svg/payment-terms.svg" alt="">
+                                            پرداخت در محل با کارت بانکی
+                                        </li>
+                                        <li class="checkout-feature-aside-item">
+                                            <img src="./assets/img/svg/delivery.svg" alt="">
+                                            تحویل اکسپرس
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
+                {% else %}
+                        <div style="margin: 0 auto;" class="col-xl-10 col-lg-9 col-md-12 col-sm-12">
+                            <div class="dt sl dt-sn dt-sn--box border pt-3 pb-5" style="box-shadow: 0 3px 7px 0 rgba(0, 0, 0, .13), 0 1px 2px 0 rgba(0, 0, 0, .11);">
+                                <div class="cart-page cart-empty">
+                                    <div class="circle-box-icon">
+                                        <i>
+                                            <svg width="70px" height="70px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M2 3L2.26491 3.0883C3.58495 3.52832 4.24497 3.74832 4.62248 4.2721C5 4.79587 5 5.49159 5 6.88304V9.5C5 12.3284 5 13.7426 5.87868 14.6213C6.75736 15.5 8.17157 15.5 11 15.5H19" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"></path>
+                                                <path opacity="0.5" d="M7.5 18C8.32843 18 9 18.6716 9 19.5C9 20.3284 8.32843 21 7.5 21C6.67157 21 6 20.3284 6 19.5C6 18.6716 6.67157 18 7.5 18Z" stroke="#1C274C" stroke-width="1.5"></path>
+                                                <path opacity="0.5" d="M16.5 18.0001C17.3284 18.0001 18 18.6716 18 19.5001C18 20.3285 17.3284 21.0001 16.5 21.0001C15.6716 21.0001 15 20.3285 15 19.5001C15 18.6716 15.6716 18.0001 16.5 18.0001Z" stroke="#1C274C" stroke-width="1.5"></path>
+                                                <path opacity="0.5" d="M11 9H8" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"></path>
+                                                <path d="M5 6H16.4504C18.5054 6 19.5328 6 19.9775 6.67426C20.4221 7.34853 20.0173 8.29294 19.2078 10.1818L18.7792 11.1818C18.4013 12.0636 18.2123 12.5045 17.8366 12.7523C17.4609 13 16.9812 13 16.0218 13H5" stroke="#1C274C" stroke-width="1.5"></path>
+                                            </svg>
+                                        </i>
+                                    </div>
+                                    <p class="cart-empty-title mb-2">سبد خرید شما خالیست!</p>
+                                    <p class="mb-3">می‌توانید برای مشاهده محصولات بیشتر به صفحات زیر بروید:</p>
+                                    <div class="cart-empty-links mb-5">
+                                        <a href="#" class="border-bottom-dt">لیست مورد علاقه من</a>
+                                        <a href="#" class="border-bottom-dt">محصولات شگفت‌انگیز</a>
+                                        <a href="#" class="border-bottom-dt">محصولات پرفروش روز</a>
+                                    </div>
+                                    <a href="{% url 'pages:home_page' %}" class="btn-primary-cm">ادامه خرید در دیجی پرس</a>
+                                </div>
+                            </div>
+                        </div>
+                    
+                {% endif %}
+
+
                 </div>
             </div>
+        </div>
         </div>
     </main>
 {% endblock %}

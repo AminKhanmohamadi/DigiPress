@@ -6663,6 +6663,16 @@ span {
   color: #777;
   border: 0;
 }
+.checkout-section-content-dd-k
+.cart-items-dd-k
+.cart-item
+.item-info
+.item-detail
+.item-quantity--item-price
+.item-quantity
+.item-remove-btn:hover{
+  color: red;
+}
 
 .checkout-section-content-dd-k
 .cart-items-dd-k

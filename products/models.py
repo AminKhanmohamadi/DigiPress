@@ -81,6 +81,11 @@ class Product(models.Model):
     def get_absolute_url(self):
         return reverse('product_detail', args=[self.pk])
 
+
+    def get_price(self):
+        return self.off_price if self.offer else self.sell_price
+
+
     class Meta:
         verbose_name = _('Product')
         verbose_name_plural = _('Products')

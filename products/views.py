@@ -1,7 +1,7 @@
 from django.views.generic import ListView, DetailView
 
 from products.models import Product, Category, SubCategory
-
+from cart.forms import AddToCartProductForm
 
 # Create your views here.
 
@@ -76,6 +76,7 @@ class ProductDetailView(DetailView):
         # افزودن محصولات مشابه به کانتکست
         context['similar_products'] = similar_products_by_category | similar_products_by_subcategory
         context['sub_category'] = product.sub_category
+
         return context
 
 

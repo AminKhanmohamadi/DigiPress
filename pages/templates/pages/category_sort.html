@@ -8,10 +8,13 @@
                 </i>دسته بندی کالاها </a>
             <ul>
                 <li>
-                    <a href="#">کالای دیجیتال</a>
-                    <ul class="row">
-                        <li class="col-3">
-                            {% for category in categories %}
+                    <a href="{% url 'all-product-list' %}">همه محصولات </a>
+                </li>
+                {% for category in categories %}
+                    <li>
+                        <a href="{% url 'product_list' category.slug %}">{{ category.title }}</a>
+                        <ul class="row">
+                            <li class="col-3">
                                 <a href="{% url 'product_list' category.slug %}">{{ category.title }}</a>
                                 <ul>
                                     {% for sub_category in category.children.all  %}
@@ -20,10 +23,10 @@
                                         </li>
                                     {% endfor %}
                                 </ul>
-                            {% endfor %}
-                        </li>
-                    </ul>
-                </li>
+                            </li>
+                        </ul>
+                    </li>
+                {% endfor %}
             </ul>
         </li>
         <li>
