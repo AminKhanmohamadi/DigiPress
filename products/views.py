@@ -8,7 +8,7 @@ from products.models import Product, Category, SubCategory
 class AllProductListView(ListView):
     model = Product
     template_name = 'products/all_product.html'
-    paginate_by = 10
+    paginate_by = 2
     context_object_name = 'products'
     ordering = ['sub_category']
 
