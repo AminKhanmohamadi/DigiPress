@@ -1,21 +1,21 @@
 (function($) {
     "use strict";
     var Mihanjs = {};
-  
+
     /*----------------------------------- Preloader */
     var preloader = $(".page-loader");
     $(window).on("load", function() {
         var preloaderFadeOutTime = 500;
-  
+
         function hidePreloader() {
             preloader.fadeOut(preloaderFadeOutTime);
         }
-  
+
         hidePreloader();
     });
     /*----------------------------------- Preloader */
-  
-  
+
+
     /*-------------------------------- Sticky Header */
     Mihanjs.StickyHeader = function() {
         $(window).scroll(function() {
@@ -39,8 +39,8 @@
         });
     }
     /*-------------------------------- Sticky Header */
-  
-  
+
+
     /*-------------------------------- Category List */
     Mihanjs.CategoryList = function() {
         $('.category-list>ul>li:first-child').addClass('active');
@@ -49,8 +49,8 @@
         });
     }
     /*-------------------------------- Category List */
-  
-  
+
+
     /*----------------------------- ResponsiveHeader */
     Mihanjs.ResponsiveHeader = function() {
         $('.header-responsive .btn-toggle-side-navigation').on('click', function(event) {
@@ -68,8 +68,8 @@
         });
     }
     /*----------------------------- ResponsiveHeader */
-  
-  
+
+
     /*-------------------------------- Search Result */
     Mihanjs.SearchResult = function() {
         $('.search-box form input').on('click', function() {
@@ -95,7 +95,7 @@
     }
     /*-------------------------------- Search Result */
 
-    
+
     /*------------------------------------ BackToTop */
     Mihanjs.BackToTop = function() {
         $(".back-to-top .back-btn").click(function() {
@@ -106,54 +106,54 @@
         });
     }
     /*------------------------------------ BackToTop */
-  
+
     $(window).on("load", function() {});
     $(document).ready(function() {
         Mihanjs.StickyHeader(),
-        Mihanjs.CategoryList(), 
-        Mihanjs.ResponsiveHeader(), 
-        Mihanjs.SearchResult(),
-        Mihanjs.BackToTop();
-       
+            Mihanjs.CategoryList(),
+            Mihanjs.ResponsiveHeader(),
+            Mihanjs.SearchResult(),
+            Mihanjs.BackToTop();
+
     });
-  })(jQuery);
+})(jQuery);
 
 
-    $('.pointer').click(function(){
-        $("html, body").animate({ scrollTop: 0 }, 600);
-        return false;
-    });
-  
+$('.pointer').click(function(){
+    $("html, body").animate({ scrollTop: 0 }, 600);
+    return false;
+});
 
-    /*------------------------------- Sidebar Sticky */
-    if ($(".container .sticky-sidebar").length) {
-        $(".container .sticky-sidebar").theiaStickySidebar();
-    }
-    /*------------------------------- Sidebar Sticky */
 
-  
-   /*------------------------------- Product Quantity */
-   $(".num-in span").click(function () {
+/*------------------------------- Sidebar Sticky */
+if ($(".container .sticky-sidebar").length) {
+    $(".container .sticky-sidebar").theiaStickySidebar();
+}
+/*------------------------------- Sidebar Sticky */
+
+
+/*------------------------------- Product Quantity */
+$(".num-in span").click(function () {
     var $input = $(this).parents(".num-block").find("input.in-num");
     if ($(this).hasClass("minus")) {
-      var count = parseFloat($input.val()) - 1;
-      count = count < 1 ? 1 : count;
-      if (count < 2) {
-        $(this).addClass("dis");
-      } else {
-        $(this).removeClass("dis");
-      }
-      $input.val(count);
+        var count = parseFloat($input.val()) - 1;
+        count = count < 1 ? 1 : count;
+        if (count < 2) {
+            $(this).addClass("dis");
+        } else {
+            $(this).removeClass("dis");
+        }
+        $input.val(count);
     } else {
-      var count = parseFloat($input.val()) + 1;
-      $input.val(count);
-      if (count > 1) {
-        $(this).parents(".num-block").find(".minus").removeClass("dis");
-      }
+        var count = parseFloat($input.val()) + 1;
+        $input.val(count);
+        if (count > 1) {
+            $(this).parents(".num-block").find(".minus").removeClass("dis");
+        }
     }
 
     $input.change();
     return false;
-  });
- /*------------------------------- Product Quantity */
+});
+/*------------------------------- Product Quantity */
  

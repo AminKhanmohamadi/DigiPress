@@ -91,6 +91,9 @@
                                             class="section-title text-sm-title title-wide no-after-title-wide mb-0 dt-sl">
                                         <h2>کد محصول:{{ product.id }}</h2>
                                     </div>
+
+
+
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="product-guaranteed">
@@ -155,12 +158,29 @@
                                                 {#                                                    <span>300,000</span>&nbsp; تومان تخفیف سازمانی کسر گردیده است.#}
                                                 {#                                                </div>#}
                                             </div>
+                                            <div class="checkout-section-content-dd-k">
+                                                <div class="item-quantity--item-price">
+                                                    <span>تعداد :</span>
+                                                    <div class="item-quantity">
+                                                        <div class="num-block">
+                                                            <div class="num-in">
+                                                                <span class="plus"></span>
+                                                                <input type="text" class="in-num"
+                                                                       value="1" readonly>
+                                                                <span class="minus dis"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br>
                                             <div class="product-seller-row product-seller-row--add-to-cart">
                                                 <a href="#" class="btn-add-to-cart btn-add-to-cart--full-width">
                                                     <span class="btn-add-to-cart-txt">افزودن به سبد خرید</span>
                                                 </a>
+
                                                 <div class="product-seller-digiclub">
-                                                    <img src="./assets/img/digiclub.png" alt="">
+                                                    <img src="{% static './assets/img/digiclub.png' %}" alt="">
                                                     <div>
                                                         دریافت
                                                         <span>۱۵۰</span>
@@ -189,10 +209,12 @@
                         </div>
                     </div>
                 </div>
-                <!-- <div class="mb-add-to-cart-btn-wrapper">
-                    <a href="#" class="mb-add-to-cart-btn">افزودن به سبد خرید</a>
-                </div> -->
+                {#                <div class="mb-add-to-cart-btn-wrapper">#}
+                {#                    <a href="#" class="mb-add-to-cart-btn">افزودن به سبد خرید</a>#}
+                {#                </div>#}
             </div>
+
+
             <!-- sellers -->
             <div class="dt-sn mb-5 px-0 dt-sl pt-0">
                 <!-- Start tabs -->
@@ -410,6 +432,8 @@
                 <!-- End tabs -->
             </div>
             <!-- End Product -->
+
+
             <!-- Start Product-Slider -->
             <section class="slider-section dt-sl mb-5">
                 <div class="row mb-3">
@@ -478,7 +502,7 @@
                                 {% endif %}
 
                             {% endfor %}
-                        
+
                         </div>
                     </div>
                     <!-- End Product-Slider -->
@@ -491,6 +515,7 @@
     <!--------------------------------- Main Content -->
 
 
-   
+
 
 {% endblock %}
+
