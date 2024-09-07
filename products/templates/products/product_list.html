@@ -260,25 +260,25 @@
                             جستجوی پیشرفته <i class="fad fa-sliders-h"></i>
                         </button>
                     </div>
+
+
                     <div class="dt-sl dt-sn px-0 search-amazing-tab">
-                        <div class="ah-tab-wrapper dt-sl">
-{#                            <div class="ah-tab dt-sl">#}
-{#                                <a class="ah-tab-item" data-ah-tab-active="true" href="">مرتبط ترین</a>#}
-{#                                #}
-{#                                <a class="ah-tab-item" href="{% url 'product_list' slug %}?sort=date">جدید ترین</a>#}
-{#                                <a class="ah-tab-item" href="{% url 'product_list' slug %}?sort=price_asc">جدید ترین</a>#}
-{#                                <a class="ah-tab-item" href="{% url 'product_list' slug %}?sort=price_dasc">گران ترین</a>#}
-{#                            </div>#}
+                    
+                        <div class="ah-tab dt-sl">
+                            <button class="sort-button ah-tab-item" data-sort="newest" data-ah-tab-active="true">جدیدترین</button>
+                            <button class="sort-button ah-tab-item" data-sort="price_asc">ارزان‌ترین</button>
+                            <button class="sort-button ah-tab-item" data-sort="price_desc">گران‌ترین</button>
                         </div>
 
-
+                    
                         <div class="ah-tab-content-wrapper dt-sl px-res-0">
                             <div class="ah-tab-content dt-sl" data-ah-tab-active="true">
-                                <div class="row mb-3 mx-0 px-res-0">
+                                <div class="row mb-3 mx-0 px-res-0" id="product-list">
                                     {% for product in products %}
-                                        {% if product.offer %}
-                                            <div class="col-lg-3 col-md-4 col-sm-6 col-12 px-10 mb-1 px-res-0">
-                                                <div class="product-card mb-2 mx-res-0">
+
+                                        <div class="col-lg-3 col-md-4 col-sm-6 col-12 px-10 mb-1 px-res-0">
+                                            <div class="product-card mb-2 mx-res-0">
+                                                {% if product.offer %}
                                                     <div class="promotion-badge">
                                                         فروش ویژه
                                                     </div>
@@ -294,43 +294,24 @@
                                                             <span>{{ product.offer }}%</span>
                                                         </div>
                                                     </div>
-                                                    <a class="product-thumb" href="{{ product.get_absolute_url }}">
-                                                        <img src="{{ product.image.url }}" alt="Product Thumbnail">
-                                                    </a>
-                                                    <div class="product-card-body">
-                                                        <h5 class="product-title">
-                                                            <a href="{{ product.get_absolute_url }}">{{ product.title }}</a>
-                                                        </h5>
-                                                        <a class="product-meta" href="{% url 'product_list' product.sub_category.slug %}">{{ product.sub_category }}</a>
+                                                {% endif %}
+                                                <a class="product-thumb" href="{{ product.get_absolute_url }}">
+                                                    <img src="{{ product.image.url }}" alt="Product Thumbnail">
+                                                </a>
+                                                <div class="product-card-body">
+                                                    <h5 class="product-title">
+                                                        <a href="{{ product.get_absolute_url }}">{{ product.title }}</a>
+                                                    </h5>
+                                                    <a class="product-meta" href="{% url 'product_list' product.sub_category.slug %}">{{ product.sub_category }}</a>
+                                                    {% if product.offer %}
+                                                        <span class="product-price " style="text-decoration: line-through; color: indianred;">{{ product.sell_price|intcomma:False }} تومان</span>
+                                                        <span class="product-price">{{ product.off_price|intcomma:False }} تومان</span>
+                                                    {% else %}
                                                         <span class="product-price">{{ product.sell_price|intcomma:False }} تومان</span>
-                                                    </div>
+                                                    {% endif %}
                                                 </div>
                                             </div>
-                                        {% else %}
-                                            <div class="col-lg-3 col-md-4 col-sm-6 col-12 px-10 mb-1 px-res-0">
-                                                <div class="product-card mb-2 mx-res-0">
-                                                    <div class="product-head">
-                                                        <div class="rating-stars">
-                                                            <i class="fa fa-star active"></i>
-                                                            <i class="fa fa-star active"></i>
-                                                            <i class="fa fa-star active"></i>
-                                                            <i class="fa fa-star active"></i>
-                                                            <i class="fa fa-star"></i>
-                                                        </div>
-                                                    </div>
-                                                    <a class="product-thumb" href="{{ product.get_absolute_url }}">
-                                                        <img src="{{ product.image.url }}" alt="Product Thumbnail">
-                                                    </a>
-                                                    <div class="product-card-body">
-                                                        <h5 class="product-title">
-                                                            <a href="{{ product.get_absolute_url }}">{{ product.title }}</a>
-                                                        </h5>
-                                                        <a class="product-meta" href="{% url 'product_list' product.sub_category.slug %}">{{ product.sub_category }}</a>
-                                                        <span class="product-price"> تومان{{ product.sell_price|intcomma:False }}</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        {% endif %}
+                                        </div>
                                     {% endfor %}
 
 

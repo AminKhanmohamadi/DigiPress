@@ -5,7 +5,7 @@ from django.utils.translation import gettext_lazy as _
 from ckeditor.fields import RichTextField
 from django.utils.text import slugify
 from django.core.validators import MaxValueValidator, MinValueValidator
-
+from decimal import Decimal
 # Create your models here.
 
 class Category(models.Model):
@@ -50,8 +50,8 @@ class Product(models.Model):
     description = RichTextField(verbose_name=_('Description') , blank=True)
     is_active = models.BooleanField(default=True, verbose_name=_('Active'))
     image = models.ImageField(upload_to='products/product_cover', blank=True, null=True, verbose_name=_('Image'))
-    sell_price = models.PositiveIntegerField(default=0 , verbose_name=_('Sell Price'))
-    off_price = models.PositiveIntegerField(default=0 , verbose_name=_('Off Price') , null=True, blank=True)
+    sell_price = models.DecimalField(max_digits=10, decimal_places=0 , verbose_name=_('Sell Price'))
+    off_price = models.DecimalField(max_digits=10, decimal_places=0 , verbose_name=_('Off Price') , null=True, blank=True)
     offer = models.PositiveIntegerField(verbose_name=_('Offer'), null=True, blank=True ,validators=[MinValueValidator(1), MaxValueValidator(100)] )
 
     datetime_created = models.DateTimeField(auto_now_add=True)
@@ -67,10 +67,11 @@ class Product(models.Model):
         if not self.slug:
             self.slug = slugify(self.title)
 
-        if self.offer and int(self.offer) > 0:
-            # اگر تخفیف درصدی وجود داشت، آن را محاسبه و به عنوان off_price ذخیره کنید
-            discount = (int(self.offer) / 100) * self.sell_price
-            self.off_price = int(self.sell_price - discount)
+        if self.offer and self.offer > 0:
+            sell_price = Decimal(self.sell_price)
+            offer = Decimal(self.offer)
+            discount = (offer / Decimal('100')) * sell_price
+            self.off_price = sell_price - discount
         super().save(*args, **kwargs)
 
 
