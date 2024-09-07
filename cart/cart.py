@@ -118,4 +118,3 @@ class Cart:
         product_ids = self.cart.keys()
 
         return sum(item['quantity'] * item['product_obj'].get_price() for item in self.cart.values())
-

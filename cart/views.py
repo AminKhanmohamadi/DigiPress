@@ -1,6 +1,6 @@
-from django.contrib import messages
+
 from django.shortcuts import render, get_object_or_404, redirect
-from django.utils.translation import gettext_lazy as _
+
 from django.views.decorators.http import require_POST
 
 from products.models import Product
@@ -12,7 +12,7 @@ from .forms import AddToCartProductForm
 def cart_detail_view(request):
     cart = Cart(request)
 
-    for item in cart:
+    for item in cart :
         item['product_update_quantity_form'] = AddToCartProductForm(initial={
             'quantity': item['quantity'],
             'inplace': True

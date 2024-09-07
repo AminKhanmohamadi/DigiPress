@@ -1,3 +1,4 @@
+from django.shortcuts import get_object_or_404, render
 from django.template.loader import render_to_string
 from django.http import JsonResponse
 
@@ -6,7 +7,8 @@ from django.views.generic import ListView, DetailView
 from django.db.models import Case, When, Value, DecimalField
 
 from products.models import Product, Category, SubCategory
-
+from django.utils.translation import gettext_lazy as _
+from django.contrib import messages
 
 # Create your views here.
 
@@ -144,5 +146,6 @@ class ProductDetailView(DetailView):
         context['sub_category'] = product.sub_category
 
         return context
+
 
 

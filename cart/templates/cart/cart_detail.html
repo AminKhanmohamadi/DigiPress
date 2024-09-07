@@ -12,7 +12,7 @@
                     <div class="col-xl-9 col-lg-8 col-md-12 col-sm-12 mb-2 mt-2" style="padding-left: 0;padding-right: 0;">
                         <nav class="tab-cart-page">
                             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                <a class="nav-item nav-link d-inline-flex w-auto active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">سبد خرید<span class="count-cart">1</span></a>
+                                <a class="nav-item nav-link d-inline-flex w-auto active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">سبد خرید<span class="count-cart">{{ cart|length }}</span></a>
                                 {#                            <a class="nav-item nav-link d-inline-flex w-auto" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">لیست خرید بعدی<span class="count-cart">1</span></a>#}
                             </div>
                         </nav>
@@ -39,7 +39,7 @@
                                                 </defs>
                                             </svg>
                                             <span class="checkout-header-title">ارسال عادی</span>
-                                            <span class="checkout-header-extra-info">(3 کالا)</span>
+                                            <span class="checkout-header-extra-info">({{ cart|length }} کالا)</span>
                                         </div>
                                         <div class="checkout-section-content-dd-k">
                                             <div class="cart-items-dd-k">
