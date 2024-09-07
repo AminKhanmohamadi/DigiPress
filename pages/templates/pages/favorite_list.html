@@ -10,7 +10,7 @@
                     <div class="profile-sidebar dt-sl">
                         <div class="dt-sl dt-sn border mb-3">
                             <div class="profile-sidebar-header dt-sl">
-                                <div class="d-flex align-favs-center">
+                                <div class="d-flex align-favorites-center">
                                     <div class="profile-avatar">
                                         <img src="./assets/img/svg/avatar-1.svg" alt="">
                                     </div>
@@ -163,18 +163,18 @@
                             </div>
                             <div class="dt-sl">
                                 <div class="row">
-                                    {% for fav in favorites %}
+                                    {% for favorite in favorites %}
                                         <div class="col-lg-6 col-md-12">
                                             <div class="card-horizontal-product border-bottom rounded-0">
                                                 <div class="card-horizontal-product-thumb">
-                                                    <a href="{% url 'product_detail' fav.product_i.id %}">
-                                                        <img src="{{ fav.product_i.image_url }}" alt="">
+                                                    <a href="{{ favorite.product.get_absolute_url }}">
+                                                        <img src="{{ favorite.product.image.url }}" alt="">
                                                     </a>
                                                 </div>
                                                 <div class="card-horizontal-product-content">
                                                     <div class="card-horizontal-product-title">
-                                                        <a href="{% url 'product_detail' fav.product_i.id %}">
-                                                            <h3>{{ fav.product_i.title }} </h3>
+                                                        <a href="{{ favorite.product.get_absolute_url }}">
+                                                            <h3>{{ favorite.product.title }} </h3>
                                                         </a>
                                                     </div>
                                                     <div class="rating-stars">
@@ -185,16 +185,16 @@
                                                         <i class="fa fa-star"></i>
                                                     </div>
                                                     <div class="card-horizontal-product-price">
-                                                        {% if fav.product_i.offer %}
-                                                            <span class="product-price " style="text-decoration: line-through; color: indianred;">{{ fav.product_i.sell_price|intcomma:False }} تومان</span>
-                                                            <span class="product-price">{{ fav.product_i.off_price|intcomma:False }} تومان</span>
+                                                        {% if favorite.product.offer %}
+                                                            <span class="product-price " style="text-decoration: line-through; color: indianred;">{{ favorite.product.sell_price|intcomma:False }} تومان</span>
+                                                            <span class="product-price">{{ favorite.product.off_price|intcomma:False }} تومان</span>
                                                         {% else %}
-                                                            <span class="product-price">{{ fav.product_i.sell_price|intcomma:False }} تومان</span>
+                                                            <span class="product-price">{{ favorite.product.sell_price|intcomma:False }} تومان</span>
                                                         {% endif %}
                                                     </div>
                                                     <div class="card-horizontal-product-buttons">
-                                                        <a href="{% url 'product_detail' fav.product_i.id %}" class="btn">مشاهده محصول</a>
-                                                        <a href="{% url 'pages:remove_from_favorites' fav.product_i.id %}">
+                                                        <a href="{{ favorite.product.get_absolute_url }}" class="btn">مشاهده محصول</a>
+                                                        <a href="{% url 'pages:remove_from_favorites' favorite.product.id %}">
                                                             <button class="remove-btn">
                                                                 <i>
                                                                     <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -91,6 +91,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 #     Custom Context Processors
                 'cart.context_processors.cart',
+                'pages.context_processors.len_favorites',
 
 
             ],
