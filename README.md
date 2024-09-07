@@ -1,7 +1,7 @@
 <h1 align='center'>Digital Products Online Store</h1>
-This project is an online store for selling digital products, built with **Django** and **JavaScript**. The project includes features such as an admin panel, shopping cart, user registration and login system, a blog with comments, and integration with a payment gateway.
+<h3 align='center'>This project is an online store for selling digital products, built with **Django** and **JavaScript**. The project includes features such as an admin panel, shopping cart, user registration and login system, a blog with comments, and integration with a payment gateway.</h3>
   
-Features
+<h4>Features</h4>
 
 - **Custom Admin Panel:** Manage products, users, and orders.
 - **Authentication System:** User registration and login with email verification using **Django-Allauth**.
@@ -10,7 +10,7 @@ Features
 - **Blog Section:** Create and manage blog posts with user comment functionality.
 - **Payment Gateway Integration:** Process online transactions and manage user purchases.
 
-Requirements
+<h4>Requirements</h4>
 
 To run this project, the following tools and libraries are needed:
 
