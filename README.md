@@ -1,4 +1,4 @@
-<h1 align='center>Digital Products Online Store</h1>
+<h1 align='center'>Digital Products Online Store</h1>
 This project is an online store for selling digital products, built with **Django** and **JavaScript**. The project includes features such as an admin panel, shopping cart, user registration and login system, a blog with comments, and integration with a payment gateway.
   
 Features
