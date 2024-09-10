@@ -11,4 +11,5 @@ urlpatterns = [
     path('favorites/add/<int:product_id>/', add_to_favorite_view, name='add_to_favorites'),
     path('favorites/remove/<int:product_id>/', remove_favorite_view, name='remove_from_favorites'),
 
+
 ]

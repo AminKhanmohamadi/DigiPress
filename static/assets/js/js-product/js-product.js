@@ -197,22 +197,8 @@ $(".product-carousel").owlCarousel({
 const ctx = document.getElementById('myChart');
 Chart.defaults.font.family = "shabnam";
 Chart.defaults.font.size = 14;
-new Chart(ctx, {
-    type: 'line',
-    data: {
-        labels: ['23 مهر 1403', '11 آبان 1403', '4 آذر 1403', '11 دی 1403', '5 بهمن 1403', '19 اسفند 1403'],
-        datasets: [{
-            label: 'Samsung',
-            data: [1500000, 1700000, 1900000, 1400000, 1600000, 3200000],
-            borderWidth: 2,
-            borderColor: '#007fee',
-            pointBackgroundColor: '#fff',
-            pointRadius: 5,
-            pointHoverRadius: 10,
-            tension: 0,
-        }]
-    }
-});
+
+
 
 $(".product-params .sum-more").click(function () {
     var sumaryBox = $(this).parents(".product-params");

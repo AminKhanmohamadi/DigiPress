@@ -109,3 +109,7 @@ def len_favorites(request):
     context = {'favorites':favorites}
 
     return render(request, 'pages/header.html', context)
+
+
+
+
