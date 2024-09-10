@@ -1,13 +1,9 @@
-from lib2to3.fixes.fix_input import context
-
 from django.db.models import Case, When, DecimalField
 from django.http import JsonResponse
-from django.shortcuts import get_object_or_404, render, redirect, reverse
 from django.template.loader import render_to_string
 from django.views.generic import ListView, DetailView
 
 from products.models import Product, Category, SubCategory
-from .forms import SearchForm
 
 
 # Create your views here.
@@ -27,22 +23,16 @@ from .forms import SearchForm
 
 
 def ajax_search_prodct(request):
-    query = request.GET.get('query' , '')
+    query = request.GET.get('query', '')
 
     if query:
-        product = Product.objects.filter(title__icontains=query , is_active=True)
+        product = Product.objects.filter(title__icontains=query, is_active=True)
 
-        product_list = [{'id':product.id , 'title':product.title, 'slug':product.slug } for product in product]
+        product_list = [{'id': product.id, 'title': product.title, 'slug': product.slug} for product in product]
     else:
         product_list = []
 
-    return JsonResponse({'products':product_list})
-
-
-
-
-
-
+    return JsonResponse({'products': product_list})
 
 
 class AllProductListView(ListView):
@@ -80,17 +70,6 @@ class AllProductListView(ListView):
 
         # در صورت نبود درخواست AJAX، صفحه کامل رندر شود
         return super().render_to_response(context, **response_kwargs)
-
-
-
-
-
-
-
-
-
-
-
 
 
 class ProductListView(ListView):
@@ -134,8 +113,6 @@ class ProductListView(ListView):
 
         return products
 
-
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['slug'] = self.kwargs.get('slug')
@@ -151,13 +128,10 @@ class ProductListView(ListView):
         return super().render_to_response(context, **response_kwargs)
 
 
-
-
 class ProductDetailView(DetailView):
     model = Product
     template_name = 'products/product_detail.html'
     context_object_name = 'product'
-
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -180,9 +154,3 @@ class ProductDetailView(DetailView):
         context['sub_category'] = product.sub_category
 
         return context
-
-
-
-
-
-
