@@ -6,6 +6,7 @@ from ckeditor.fields import RichTextField
 from django.utils.text import slugify
 from django.core.validators import MaxValueValidator, MinValueValidator
 from decimal import Decimal
+from autoslug import AutoSlugField
 
 
 # Create your models here.
@@ -47,7 +48,7 @@ class Product(models.Model):
     sub_category = models.ForeignKey(SubCategory, on_delete=models.CASCADE, null=True, blank=True,
                                      related_name='sub_category', verbose_name=_('Sub Category'))
     brand = models.CharField(max_length=100, verbose_name=_('Brand'), null=True, blank=True)
-    slug = models.SlugField(max_length=100, unique=True, verbose_name=_('Slug'))
+    slug = AutoSlugField(populate_from='title', unique=True, allow_unicode=True,verbose_name=_('Slug'))
     description = RichTextField(verbose_name=_('Description'), blank=True)
     is_active = models.BooleanField(default=True, verbose_name=_('Active'))
     image = models.ImageField(upload_to='products/product_cover', blank=True, null=True, verbose_name=_('Image'))
@@ -63,9 +64,6 @@ class Product(models.Model):
         return f'{self.title} - {self.is_active}'
 
     def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.title)
-
         if self.offer and self.offer > 0:
             sell_price = Decimal(self.sell_price)
             offer = Decimal(self.offer)
@@ -81,6 +79,10 @@ class Product(models.Model):
 
     def get_price(self):
         return self.off_price if self.offer else self.sell_price
+
+    def form_valid(self, form):
+        form.instance.slug = slugify(form.instance.title, allow_unicode=True)
+        return super().form_valid(form)
 
     class Meta:
         verbose_name = _('Product')

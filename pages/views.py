@@ -12,8 +12,8 @@ from .models import Favorite
 class Home_page(View):
     def get(self, request):
         products = Product.objects.all()[:5]
-        products_cat = Product.objects.filter(category_id=4)[:10]
-        categories = get_object_or_404(Category, id=4)
+        products_cat = Product.objects.filter(category_id=1)[:10]
+        categories = get_object_or_404(Category, id=1)
         context ={
             'products':products,
             'products_cat':products_cat,

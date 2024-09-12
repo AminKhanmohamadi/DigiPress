@@ -29,7 +29,7 @@ SECRET_KEY = env.str('DJANGO_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool('DJANGO_DEBUG')
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['*']
 
 SITE_ID = 1
 # Application definition
@@ -51,8 +51,6 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'ckeditor',
-    "phonenumber_field",
-    'phonenumbers',
     'django_render_partial',
 
 
@@ -61,7 +59,7 @@ INSTALLED_APPS = [
     'pages.apps.PagesConfig',
     'products.apps.ProductsConfig',
     'cart.apps.CartConfig',
-    'orders.apps.OrdersConfig'
+    'orders.apps.OrdersConfig',
 
 ]
 
@@ -190,8 +188,8 @@ AUTHENTICATION_BACKENDS = [
 # LANGUAGE_CODE = 'en-us'
 LANGUAGE_CODE = 'fa'
 
-import locale
-locale.setlocale(locale.LC_ALL, "Persian_Iran.UTF-8")
+
+
 
 LANGUAGES = [
     ('en' , 'English'),

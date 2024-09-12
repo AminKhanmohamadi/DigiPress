@@ -13,8 +13,6 @@ class Order(models.Model):
     last_name = models.CharField(max_length=100 , verbose_name=_('Last Name'))
 
     phone_number = models.CharField(max_length=15 , verbose_name=_('Phone Number'))
-    city = models.CharField(max_length=100 , verbose_name=_('City'))
-    province = models.CharField(max_length=100 , verbose_name=_('Province'))
     address = models.CharField(max_length=700 , verbose_name=_('Address'))
     postal_code = models.CharField(max_length=100 , verbose_name=_('Postal Code'))
 

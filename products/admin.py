@@ -6,8 +6,8 @@ from products.models import Product , Category , SubCategory
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['title' , 'sell_price' , 'off_price' , 'is_active']
-    prepopulated_fields = {'slug': ('title',)}
+    list_display = ['title' , 'sell_price' , 'slug' , 'off_price' , 'is_active']
+
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):

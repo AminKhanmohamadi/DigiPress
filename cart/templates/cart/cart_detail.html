@@ -149,7 +149,7 @@
                                             <span class="checkout-summary-price-value-amount">{{ cart.get_total_price|intcomma:False }}</span>
                                             تومان
                                         </div>
-                                        <a href="#" class="mb-2 d-block">
+                                        <a href="{% url 'order_create' %}" class="mb-2 d-block">
                                             <button class="btn-primary-cm btn-with-icon w-100 text-center pr-0">
                                                 <i>
                                                     <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
