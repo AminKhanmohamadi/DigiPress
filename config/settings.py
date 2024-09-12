@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     'products.apps.ProductsConfig',
     'cart.apps.CartConfig',
     'orders.apps.OrdersConfig',
+    'payment.apps.PaymentConfig',
 
 ]
 
@@ -262,4 +263,4 @@ MESSAGE_TAGS = {
     messages.ERROR: 'danger',
 }
 
-# ZARINPAL_MERCHANT_ID = env.str("DJANGO_ZARINPAL_MERCHANT")
+ZARINPAL_MERCHANT_ID = env.str("DJANGO_ZARINPAL_MERCHANT")

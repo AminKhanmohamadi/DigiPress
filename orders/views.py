@@ -41,7 +41,10 @@ def order_create(request):
                 request.user.postal_code = order_obj.postal_code
                 request.user.save()
 
-                messages.success(request, _('Order successfully created'))
+                request.session['order_id'] = order_obj.id
+                return redirect('payment:payment_process')
 
 
     return render(request, 'orders/order_create.html' , {'form': order_form})
+
+

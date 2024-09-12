@@ -1,3 +1,5 @@
+from pydoc import resolve
+
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -16,6 +18,10 @@ class Order(models.Model):
     address = models.CharField(max_length=700 , verbose_name=_('Address'))
     postal_code = models.CharField(max_length=100 , verbose_name=_('Postal Code'))
 
+    authority = models.CharField(max_length=255 , verbose_name=_('Authority') , blank=True)
+    ref_id = models.CharField(max_length=255 , verbose_name=_('Ref_id') , blank=True)
+    zarinpal_data = models.TextField(blank=True)
+
     is_paid = models.BooleanField(default=False)
 
     datetime_created = models.DateTimeField(auto_now_add=True)
@@ -27,6 +33,15 @@ class Order(models.Model):
     class Meta:
         verbose_name = _('Order')
         verbose_name_plural = _('Orders')
+
+
+    def get_total_price(self):
+        result = 0
+        # for item in self.items.all():
+        #     result += item.price * item.quantity
+        # return result
+        return sum(item.quantity * item.price for item in self.items.all())
+
 
 
 
