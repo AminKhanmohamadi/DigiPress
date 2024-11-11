@@ -11,8 +11,8 @@ from .models import Favorite
 
 class Home_page(View):
     def get(self, request):
-        products = Product.objects.all()[:5]
-        products_cat = Product.objects.filter(category_id=1)[:10]
+        products = Product.objects.select_related('sub_category' , 'category').all()[:5]
+        products_cat = Product.objects.select_related('sub_category' , 'category').filter(category_id=1)[:10]
         categories = get_object_or_404(Category, id=1)
         context ={
             'products':products,
@@ -26,17 +26,13 @@ class Home_page(View):
 
 
 
-class HomePageView(TemplateView):
-    template_name = 'pages/category_sort.html'
+class HomePageView(View):
+   def get(self , request):
+       categories = Category.objects.prefetch_related('children').all()
+       return render(request , 'pages/category_sort.html' , {'categories':categories}) 
 
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        # لیست همه دسته‌بندی‌ها را برای نمایش در صفحه اصلی
-        context['categories'] = Category.objects.all()
-
-        return context
-
+   
 
 
 
@@ -46,12 +42,12 @@ class HeaderResponsive(TemplateView):
     template_name = 'pages/header_responsive.html'
 
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        # لیست همه دسته‌بندی‌ها را برای نمایش در صفحه اصلی
-        context['categories'] = Category.objects.all()
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     # لیست همه دسته‌بندی‌ها را برای نمایش در صفحه اصلی
+    #     context['categories'] = Category.objects.all()
 
-        return context
+    #     return context
 
 
 

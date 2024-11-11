@@ -1,8 +1,10 @@
+from typing import Any
 from django.db.models import Case, When, DecimalField
+from django.db.models.query import QuerySet
 from django.http import JsonResponse
 from django.template.loader import render_to_string
-from django.views.generic import ListView, DetailView
-
+from django.views.generic import ListView, DetailView ,View
+from django.shortcuts import render
 from products.models import Product, Category, SubCategory
 
 
@@ -35,6 +37,11 @@ def ajax_search_prodct(request):
     return JsonResponse({'products': product_list})
 
 
+
+
+
+
+
 class AllProductListView(ListView):
     model = Product
     template_name = 'products/all_product.html'
@@ -43,7 +50,7 @@ class AllProductListView(ListView):
 
     def get_queryset(self):
         sort_by = self.request.GET.get('sort_by', 'newest')  # دریافت پارامتر sort_by از GET
-        products = Product.objects.all()
+        products = Product.objects.select_related('sub_category' , 'category').all()
 
         # محاسبه قیمت نهایی با توجه به فیلدهای off_price و sell_price
         products = products.annotate(
@@ -80,7 +87,7 @@ class ProductListView(ListView):
     def get_queryset(self):
         slug = self.kwargs.get('slug')
         sort_by = self.request.GET.get('sort_by', 'newest')  # دریافت پارامتر sort_by از GET
-        products = Product.objects.all()  # دریافت تمام محصولات
+        products = Product.objects.select_related('sub_category' , 'category').all()
 
         # فیلتر بر اساس زیرمجموعه (SubCategory) اگر slug مربوط به زیرمجموعه باشد
         try:
@@ -135,22 +142,23 @@ class ProductDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        product = self.get_object()
+        
+        # استفاده از محصول موجود در context
+        product = context['product']
 
-        # محصولات مشابه بر اساس دسته‌بندی اصلی
-        similar_products_by_category = Product.objects.filter(
-            category=product.category,
-            is_active=True
-        ).exclude(id=product.id)
+        # # استفاده از select_related برای کاهش کوئری‌های اضافی
+        # similar_products_by_category = Product.objects.filter(
+        #     category=product.category,
+        #     is_active=True
+        # ).exclude(id=product.id).select_related('category', 'sub_category')
 
-        # همچنین می‌توانید بر اساس زیرمجموعه نیز فیلتر کنید
         similar_products_by_subcategory = Product.objects.filter(
-            sub_category=product.sub_category,
+            sub_category_id=product.sub_category.id,
             is_active=True
-        ).exclude(id=product.id)
+        ).exclude(id=product.id).select_related('sub_category')
 
-        # افزودن محصولات مشابه به کانتکست
-        context['similar_products'] = similar_products_by_category | similar_products_by_subcategory
+        # ترکیب کوئری‌ها
+        context['similar_products'] =  similar_products_by_subcategory
         context['sub_category'] = product.sub_category
 
         return context
