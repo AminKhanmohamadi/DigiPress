@@ -1,7 +1,8 @@
-<img src='./logo1.png' alt='logo'  />
-<h1 align='center'>Digital Products Online Store</h1>
-<h3 align='center'>This project is an online store for selling digital products, built with **Django** and **JavaScript**. The project includes features such as an admin panel, shopping cart, user registration and login system, a blog with comments, and integration with a payment gateway.</h3>
-  
+<div align='center'>
+<img src='./static/assets/img/logo1.png' alt='logo'  />
+<h1>Digital Products Online Store</h1>
+<h3>This project is an online store for selling digital products, built with **Django** and **JavaScript**. The project includes features such as an admin panel, shopping cart, user registration and login system, a blog with comments, and integration with a payment gateway.</h3>
+</div>
 <h4>Features</h4>
 
 - **Custom Admin Panel:** Manage products, users, and orders.
